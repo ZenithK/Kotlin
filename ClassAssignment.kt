@@ -12,7 +12,7 @@ package Kotlin
         myAccount.importValue(100000)
         myAccount.exportValue(20000)
 
-
+        val tv = TV(listOf<String>("K","M","S"))
     }
 
 
@@ -98,8 +98,17 @@ class TV(val channels : List<String>){
     var onOff = false;
     var currentChannelNumber = 0
         set(value){
-            field = value
-            println(value)
+            field = value // 무한 루프를 피하기 위한 방법 currentChannelNumber = value로 하면 무한 루프 발생
+            if(field > 2) {
+                field = 0
+            }
+            if(field < 0){
+                field = 2
+            }
+        }
+        get(){
+            println("호출되었습니다")
+            return field + 1
         }
     fun switch() {onOff = !onOff}
 
